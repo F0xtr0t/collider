@@ -44,3 +44,7 @@ export const Segment = (x1, y1, x2, y2) => {
 
     return segment;
 };
+
+export const Slope = (pointA, pointB) => {
+    return (pointB.y - pointA.y) / (pointB.x - pointA.x);
+}

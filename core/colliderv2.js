@@ -1,4 +1,4 @@
-import { Rectangle, Circle, Point, Polygon, EndPoint, Segment, Vecteur} from './objectType.js';
+import { Rectangle, Circle, Point, Polygon, EndPoint, Segment, Vecteur, Slope} from './objectType.js';
 
 export const collider = () => {
 // COLLISIONS
@@ -67,8 +67,15 @@ export const collider = () => {
 	   if (nbintersections%2==1) {  // nbintersections est-il impair ?
 	     return true;
 	   }
-	   
 	   return false;
+	}
+
+	// 1.4 Test la collision entre un point (x,y) et une droite formée de 2 points.
+	const PointStraightLineCollision =  (pointP, pointA, pointB) => {
+		const s = Slope(pointA, pointB);
+		const p = pointA.y - (s * pointA.x);
+		//y = (s * x) + p
+
 	}
 
   // 2. Collisions des rectangles
