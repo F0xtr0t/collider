@@ -668,14 +668,17 @@ export const collider = () => {
 		segmentCircleCollision,
 		segmentPolygonCollision,
 		segmentRectangleCollision,
+		segmentsCollision,
+
 		convertRectangleToSegments,
 		convertPolygonToSegments,
 		convertCircleToPolygon,
 		convertrectangleToPolygon,
 
-		segmentsCollision,
 		getLineIntersection,
-
-		distanceAB
+		getRectIntersection,
+		getLineCircleIntersection,
+		getRectCircleIntersection,
+		getCircleIntersection
 	}
 }
