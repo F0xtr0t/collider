@@ -35,7 +35,7 @@ let testCollision = c.rectanglesCollision(rect1, rect2);
 console.log(testCollision);
 
 // Response :
-// Array : [true, []]
+// Array : [true, [{ x: 100, y: 50 },{ x: 50, y: 100 }]]
 // First entry => Boolean : Collision (or not)
 // Second entry => Array : List of intersection points (if asked)
 ```
@@ -79,7 +79,19 @@ Methods :
 | Methods | Arguments | Response | 
 |----------|-------------|------| 
 | **Between Line & Segment**<br />```lineSegmentCollision(pointA, pointB, pointO, pointP, intersect = false)``` | <ol><li>**Point(x,y) :** Line first point (Point object)</li><li>**Point(x,y) :** Line second point (Point object)</li><li>**Point(x,y) :** Segment start point (Point object)</li><li>**Point(x,y) :** Segment end point (Point object)</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | **Array(Boolean, Array())** <ol><li>Collision or not</li><li>List of intersection points</li><ol> |
-| **Between 2 segments (first method)**<br />```segmentsCollision(pointA, pointB, pointO, pointP, intersect = false)``` | <ol><li>**Point(x,y) :** Segment 1 start point (Point object)</li><li>**Point(x,y) :** Segment 1 end point (Point object)</li><li>**Point(x,y) :** Segment 2 start point (Point object)</li><li>**Point(x,y) :** Segment 2 end point (Point object)</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | same |
+| **Between 2 segments (First method)**<br />```segmentsCollision(pointA, pointB, pointO, pointP, intersect = false)``` | <ol><li>**Point(x,y) :** Segment 1 start point (Point object)</li><li>**Point(x,y) :** Segment 1 end point (Point object)</li><li>**Point(x,y) :** Segment 2 start point (Point object)</li><li>**Point(x,y) :** Segment 2 end point (Point object)</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | same |
 | **Between 2 segments (Second method)**<br />```segmentsCollisionParametric(pointA, pointB, pointO, pointP, intersect = false)``` | <ol><li>**Point(x,y) :** Segment 1 start point (Point object)</li><li>**Point(x,y) :** Segment 1 end point (Point object)</li><li>**Point(x,y) :** Segment 2 start point (Point object)</li><li>**Point(x,y) :** Segment 2 end point (Point object)</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | same |
 | **Between Segment & Rectangle**<br />```segmentRectangleCollision(pointA, pointB, rect, intersect = false)``` | <ol><li>**Point(x,y) :** Segment 1 start point (Point object)</li><li>**Point(x,y) :** Segment 1 end point (Point object)</li><li>**Rectangle(x,y,width,height) :** Rectangle object</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | same |
 | **Between Segment & Polygon**<br />```segmentPolygonCollision(pointA, pointB, polygon, intersect = false)``` | <ol><li>**Point(x,y) :** Segment 1 start point (Point object)</li><li>**Point(x,y) :** Segment 1 end point (Point object)</li><li>**Polygon([{x,y},{x,y},...]) :** Polygon object</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | same |
+
+
+Intersection point Methods :
+----------------------------
+
+| Methods | Arguments | Response | 
+|----------|-------------|------| 
+| **Between Line & Line**<br />```getLineIntersection(PointA, PointB, PointC, PointD)``` | <ol><li>**Point(x,y) :** Line 1 first point (Point object)</li><li>**Point(x,y) :** Line 1 second point (Point object)</li><li>**Point(x,y) :** Line 2 first point (Point object)</li><li>**Point(x,y) :** Line 2 second point (Point object)</li></ol> | **Boolean or Point(x,y)** <br /> False if 0 intersection point or Intersection Point object |
+| **Between 2 Rectangles**<br />```getRectIntersection(rect1, rect2)``` | <ol><li>**Rectangle(x,y,width,height) :** Rectangle object</li><li>**Rectangle(x,y,width,height) :** Rectangle object</li></ol> | **Array(Point(x,y),...)** <br /> Array of all Intersection Point object. Array could be empty |
+| **Between Line & Circle**<br />```getLineCircleIntersection(PointA, PointB, circle)``` | <ol><li>**Point(x,y) :** Line first point (Point object)</li><li>**Point(x,y) :** Line second point (Point object)</li><li>**Circle(x,y,r) :** Circle object</li></ol> | **Array(Point(x,y),...)** <br /> Array of all Intersection Point object. Array could be empty |
+
+

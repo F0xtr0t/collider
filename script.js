@@ -4,7 +4,7 @@ import { collider } from './core/colliderv2.js'
 const c = collider();
 
 
-let rect2 = Rectangle(100, 50 , 100, 100);
+let rect2 = Rectangle(50, 50 , 100, 100);
 
 let point1 = Point(120, 30);
 let point2 = Point(150, 30);

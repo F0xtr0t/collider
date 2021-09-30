@@ -672,7 +672,7 @@ export const collider = () => {
 		convertPolygonToSegments,
 		convertCircleToPolygon,
 		convertrectangleToPolygon,
-		projectionPointDroite,
+
 		segmentsCollision,
 		getLineIntersection,
 
