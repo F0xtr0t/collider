@@ -11,7 +11,7 @@ let point2 = Point(150, 30);
 
 let rect1 = Rectangle(0, 0 , 100, 100);
 
-let circle1 = Circle(50, 150, 50);
+let circle1 = Circle(70, 70, 50);
 let circle2 = Circle(50, 50, 50);
 
 let pointd1 = Point(0, 50);
@@ -25,4 +25,4 @@ let debugDiv = document.getElementById("debug");
 
 //console.log('segment', Segment(point1.x, point1.y, point2.x, point2.y));
 
-console.log('CheckCollision', c.rectanglesCollision(rect1, rect2, true));
+console.log('CheckCollision', c.rectangleCircleCollision(rect1, circle1, true));

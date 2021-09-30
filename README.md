@@ -2,11 +2,11 @@
 
 Kesako ?
 -------------------
-Collider.js est un algorythme de collision de forme sur un plan en deux dimensions.
+Collider.js est une librairie javascript de collision de forme géométrique sur un plan en deux dimensions.
 
-L'algorythm permet de savoir (Vrai / Faux) si deux formes positionnées dans un même plan sont en collision (se touchent) ou non. 
+L'algorythme permet de tester (Vrai / Faux) si deux formes positionnées dans un même plan sont en collision ou non. 
 
-Il permet également, au besoin, d'obtenir les points d'intersection des côtés de chaques formes.
+Il permet également, au besoin, d'obtenir les points d'intersection des côtés de chaque formes.
 
 Installation :
 -------------------
@@ -25,7 +25,7 @@ var c = collider();
 
 Utilisation :
 -------------------
-Ex - Collision de 2 rectangles :
+Ex : Collision de 2 rectangles
 
 ```javascript
 
@@ -39,7 +39,23 @@ console.log(testCollision);
 // First entry => Boolean : Collision (or not)
 // Second entry => Array : List of intersection points (if asked)
 ```
-Methods :
+
+Ex : Collision entre 1 rectangle et un cercle
+
+```javascript
+
+let rect = Rectangle(0, 0 , 100, 100); //Rectangle(x, y , width, height)
+let circle = Circle(70, 70 , 50);//Circle(x, y , r)
+let testCollision = c.rectangleCircleCollision(rect, circle);
+console.log(testCollision);
+
+// Response :
+// Array : [true, [{ x: 100, y: 30 },{ x: 30, y: 100 }]]
+// First entry => Boolean : Collision (or not)
+// Second entry => Array : List of intersection points (if asked)
+```
+
+Collision Methods :
 -------------------
 #### 1. Point collision
 
@@ -93,7 +109,7 @@ Intersection point Methods :
 | **Between Line & Line**<br />```getLineIntersection(PointA, PointB, PointC, PointD)``` | <ol><li>**Point(x,y) :** Line 1 first point (Point object)</li><li>**Point(x,y) :** Line 1 second point (Point object)</li><li>**Point(x,y) :** Line 2 first point (Point object)</li><li>**Point(x,y) :** Line 2 second point (Point object)</li></ol> | **Boolean or Point(x,y)** <br /> False if 0 intersection point or Intersection Point object |
 | **Between 2 Rectangles**<br />```getRectIntersection(rect1, rect2)``` | <ol><li>**Rectangle(x,y,width,height) :** Rectangle object</li><li>**Rectangle(x,y,width,height) :** Rectangle object</li></ol> | **Array(Point(x,y),...)** <br /> Array of all Intersection Point object. Array could be empty |
 | **Between Line & Circle**<br />```getLineCircleIntersection(PointA, PointB, circle)``` | <ol><li>**Point(x,y) :** Line first point (Point object)</li><li>**Point(x,y) :** Line second point (Point object)</li><li>**Circle(x,y,r) :** Circle object</li></ol> | **Array(Point(x,y),...)** <br /> Array of all Intersection Point object. Array could be empty |
-| **Between Rectanlge & Circle**<br />```getRectCircleIntersection(rect, circle)``` | <ol><li>**Rectangle(x,y,width,height) :** Rectangle object</li><li>**Circle(x,y,r) :** Circle object</li></ol> | **Array(Point(x,y),...)** <br /> Array of all Intersection Point object. Array could be empty |
+| **Between Rectangle & Circle**<br />```getRectCircleIntersection(rect, circle)``` | <ol><li>**Rectangle(x,y,width,height) :** Rectangle object</li><li>**Circle(x,y,r) :** Circle object</li></ol> | **Array(Point(x,y),...)** <br /> Array of all Intersection Point object. Array could be empty |
 | **Between 2 Circles**<br />```getCircleIntersection(circle1, circle2)``` | <ol><li>**Circle(x,y,r) :** Circle object</li><li>**Circle(x,y,r) :** Circle object</li></ol> | **Array(Point(x,y),...)** <br /> Array of all Intersection Point object. Array could be empty |
 
 
