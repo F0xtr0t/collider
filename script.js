@@ -1,4 +1,4 @@
-import { Rectangle, Circle, Point, Polygon, EndPoint, Segment, Vecteur} from './core/objectType.js';
+import { Rectangle, Circle, Point, Polygon} from './core/objectType.js';
 import { collider } from './core/colliderv2.js'
 
 const c = collider();
