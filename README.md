@@ -39,6 +39,8 @@ console.log(testCollision);
 // First entry => Boolean : Collision (or not)
 // Second entry => Array : List of intersection points (if asked)
 ```
+Methods :
+-------------------
 #### 1. Point collision
 
 | Methods | Arguments | Response | 
@@ -54,4 +56,7 @@ console.log(testCollision);
 | Methods | Arguments | Response | 
 |----------|-------------|------| 
 | **Between 2 Rectangles**<br />rectanglesCollision(rect1, rect2, intersect = false) | <ol><li>**Rectangle(x,y,width,height) :** Rectangle object</li><li>**Rectangle(x,y,width,height) :** Rectangle object</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | **Array(Boolean, Array())** <ol><li>Collision or not</li><li>List of intersection points</li><ol> |
+| **Rectangle inside another**<br />boundCollision(rectInside, Limit, intersect = false) | <ol><li>**Rectangle(x,y,width,height) :** Rectangle object inside the "limit"</li><li>**Rectangle(x,y,width,height) :** "Limit" Rectangle object</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | same |
+| **Between Rectangle & Circle**<br />rectangleCircleCollision(rect, circle, intersect = false) | <ol><li>**Rectangle(x,y,width,height) :** Rectangle object</li><li>**Circle(x,y,r) :** Circle object</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | same |
+| **Between Rectangle & Polygon**<br />rectanglePolygonCollision(rect, polygon, intersect = false) | <ol><li>**Rectangle(x,y,width,height) :** Rectangle object</li><li>**Polygon([{x,y},{x,y},...]) :** Polygon object</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | same |
 
