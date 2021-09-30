@@ -141,36 +141,33 @@ export const collider = () => {
 	}
 	// 2.3 Test la collision entre un rectangle(x,y,width,height) et un cercle(x,y,r).
 	const rectangleCircleCollision = (rect, circle, intersect = false) => {
-		//TODO
-		//https://stackoverflow.com/questions/401847/circle-rectangle-collision-detection-intersection
-		//https://pub.phyks.me/sdz/sdz/eorie-des-collisions.html#Cercles-AABB
 		let collision = false;
 		let intersects = [];
-		let circleDistance = {};
-		circleDistance.x = Math.abs(circle.x - rect.x - rect.width/2);
-		circleDistance.y = Math.abs(circle.y - rect.y - rect.height/2);
-
-		//circleDistance.x = Math.abs(circle.x - rect.x);
-		//circleDistance.y = Math.abs(circle.y - rect.y);
-
-		if (circleDistance.x > (rect.width/2 + circle.r)) { return [collision, intersects] }
-		if (circleDistance.y > (rect.height/2 + circle.r)) { return [collision, intersects] }
-		if (circleDistance.x <= (rect.width/2)) { collision = true; }
-		if (circleDistance.y <= (rect.height/2)) { collision = true; }
-		let cornerDistance_sq = ((circleDistance.x - rect.width/2) * (circleDistance.x - rect.width/2)) + ((circleDistance.y - rect.height/2) * (circleDistance.y - rect.height/2));
-		collision = (cornerDistance_sq <= (circle.r*circle.r));
-		if(collision && intersect) {
-			intersects = getRectCircleIntersection(rect, circle);
+		if(!rectanglesCollision(rect, convertCircleToRectangle(circle))[0]) {
+			return [collision, intersects];
+		}
+		let testIntersects = getRectCircleIntersection(rect, circle);
+		if(testIntersects.length > 0) {
+			collision = true;
+			if(intersect) {
+				intersects = testIntersects;
+			}
+		} else {
+			collision = false;
+		}
+		if (pointCircleCollision(Point(rect.x,rect.y), circle)[0]
+			|| pointCircleCollision(Point(rect.x,rect.y+rect.height),circle)[0]
+			|| pointCircleCollision(Point(rect.x+rect.width,rect.y),circle)[0]
+			|| pointCircleCollision(Point(rect.x+rect.width,rect.y+rect.height),circle)[0]) {
+			collision = true;
 		}
 		return [collision, intersects];
 	}
 
 	// 2.4 Test la collision entre un rectangle(x,y,width,height) et un polygon (Tableau de points [{x,y},{x,y},...]).
-	const rectanglePolygonCollision =  (rectangle, polygon) => { 
-		return PolygonPolygonCollision(convertrectangleToPolygon(rectangle),polygon);
+	const rectanglePolygonCollision =  (rectangle, polygon, intersect = false) => {
+		return PolygonPolygonCollision(convertrectangleToPolygon(rectangle),polygon, intersect = false);
 	};
-
-
 
   // 3. Collisions des cercles
   	// 3.1 Test la collision entre 2 cercles (x,y,r)
@@ -180,9 +177,11 @@ export const collider = () => {
 		let dx = circle1.x - circle2.x;
 		let dy = circle1.y - circle2.y;
 		let distance = Math.sqrt((dx * dx) + (dy * dy));
-		if (distance < circle1.r + circle2.r) {
+		if (distance <= circle1.r + circle2.r) {
 			collision = true;
-			//TODO intersects
+			if(intersect) {
+				intersects = getCircleIntersection(circle1, circle2);
+			}
 		}
 		return [collision, intersects];
 	}
@@ -223,20 +222,26 @@ export const collider = () => {
 
   // 4. Collisions des polygons
   	// 4.1 Test la collision entre 2 polygons (Gourmand)
-  	const PolygonPolygonCollision =  (polygonA, polygonB) => { 
+  	const PolygonPolygonCollision =  (polygonA, polygonB, intersect = false) => {
+		let collision = false;
+		let intersects = [];
 		for(let i = 0;i < polygonA.points.length;i++) {
 			let pointA = polygonA.points[i];
 		    let pointB = Point();
-		    if (i == polygonA.points.length - 1) {  // si c'est le dernier point, on relie au premier
+		    if (i === polygonA.points.length - 1) {  // si c'est le dernier point, on relie au premier
 		         pointB = polygonA.points[0];
 		    } else { // sinon on relie au suivant.
 		         pointB = polygonA.points[i+1];
-		    }		
-			if(segmentPolygonCollision(pointA, pointB, polygonB)) {
-				return true;
+		    }
+		    let col = segmentPolygonCollision(pointA, pointB, polygonB, intersect);
+			if(col[0]) {
+				collision = true
+				if(intersect) {
+					intersects = intersects.concat(col[1]);
+				}
 			}
 		}
-		return false;
+		return [collision, deduplicatePoints(intersects)];
 	}
 
 
@@ -262,32 +267,43 @@ export const collider = () => {
 		return [collision, intersects];
 	}
 	// 5.2 Test la collision entre une droite et un segment
-	const droiteSegmentCollision = (pointA, pointB, pointO, pointP) => {  
+	const droiteSegmentCollision = (pointA, pointB, pointO, pointP, intersect = false) => {
+	  let collision = false;
+	  let intersects = [];
 	  let ab = Vecteur(pointA,pointB);
 	  let ap = Vecteur(pointA,pointP);
 	  let ao = Vecteur(pointA,pointO);
 	  if (((ab.x * ap.y) - (ab.y * ap.x)) * ((ab.x * ao.y) - (ab.y * ao.x)) < 0) {
-	     return true;
+	     collision = true;
+		  if(intersect) {
+			  intersects = getLineIntersection(pointA, pointB, pointO, pointP);
+		  }
 	  }
-	  return false;
+	  return [collision, intersects];
 	}
 
   // 6. Collisions des segments
   	// 6.1 Test la collision entre 2 segments
-	const segmentsCollision = (pointA, pointB, pointO, pointP) => {
-		if (droiteSegmentCollision(pointA,pointB,pointO,pointP) == false) {
-		  return false;  // inutile d'aller plus loin si le segment [OP] ne touche pas la droite (AB)
+	const segmentsCollision = (pointA, pointB, pointO, pointP, intersect = false) => {
+		let collision = false;
+		let intersects = [];
+		if (droiteSegmentCollision(pointA,pointB,pointO,pointP)[0] === false) {
+			return [collision, intersects];  // inutile d'aller plus loin si le segment [OP] ne touche pas la droite (AB)
 		}
-		if (droiteSegmentCollision(pointO,pointP,pointA,pointB) == false) {
-		  return false;
-		}	     
-		return true; // ATTENTION COMPARER avec intersectsegment
+		if (droiteSegmentCollision(pointO,pointP,pointA,pointB)[0] === false) {
+			return [collision, intersects];
+		}
+		collision = true;
+		if(intersect) {
+			intersects = getLineIntersection(pointA, pointB, pointO, pointP);
+		}
+		return [collision, intersects];
 	}
 	// 6.2 Test la collision entre 2 segments, forme paramétrique (Ce calcul permet de calculer un point d'intersection)
 	const segmentsCollisionParametric = (pointA, pointB, pointO, pointP, intersect = false) => {
 	  let collision = false;
 	  let intersects = [];
-	  if (droiteSegmentCollision(pointA,pointB,pointO,pointP) == false) {
+	  if (droiteSegmentCollision(pointA,pointB,pointO,pointP)[0] === false) {
 		 return [collision, intersects];  // inutile d'aller plus loin si le segment [OP] ne touche pas la droite (AB)
 	  }
 	  let ab = Vecteur(pointA,pointB);
@@ -305,14 +321,14 @@ export const collider = () => {
 	  return [collision, intersects];
 	}
 
-
-
 	// 6.3 Test la collision entre un segment et un rectangle 
-	const segmentRectangleCollision = (pointA, pointB, rectangle) => {
-		return segmentPolygonCollision(pointA, pointB, convertrectangleToPolygon(rectangle));
+	const segmentRectangleCollision = (pointA, pointB, rectangle, intersect = false) => {
+		return segmentPolygonCollision(pointA, pointB, convertrectangleToPolygon(rectangle), intersect);
 	}
 	// 6.4 Test la collision entre un segment et un polygon 
-	const segmentPolygonCollision = (pointA, pointB, polygon) => {
+	const segmentPolygonCollision = (pointA, pointB, polygon, intersect = false) => {
+		let collision = false;
+		let intersects = [];
 		for(let i=0;i < polygon.points.length; i++) {
 			let pointO = polygon.points[i];
 		    let pointP = Point();
@@ -321,11 +337,15 @@ export const collider = () => {
 		     } else { // sinon on relie au suivant.
 		         pointP = polygon.points[i+1];
 		     }
-		     if(segmentsCollision(pointA,pointB,pointO,pointP)) {
-		     	return true;
+		     let col = segmentsCollisionParametric(pointA,pointB,pointO,pointP, intersect);
+		     if(col[0]) {
+				 collision = true;
+				 if(intersect) {
+				 	intersects = intersects.concat(col[1]);
+				 }
 		     }  
 		}
-		return false;
+		return [collision, intersects];
 	}
 
 // AUTRES CALCUL UTILE
@@ -492,6 +512,53 @@ export const collider = () => {
 				intersects = intersects.concat(getIntersect[1]);
 			}
 		}
+
+		return deduplicatePoints(intersects);
+	}
+
+	// Calcul des points d'intersection de deux cercle
+	const getCircleIntersection = (circle1, circle2) => {
+		const EPS = 0.0000001;
+		let intersects = [];
+		let r, R, d, dx, dy, cx, cy, Cx, Cy;
+		if (circle1.r < circle2.r) {
+			r  = circle1.r;  R = circle2.r;
+			cx = circle1.x; cy = circle1.y;
+			Cx = circle2.x; Cy = circle2.y;
+		} else {
+			r  = circle2.r; R  = circle1.r;
+			Cx = circle1.x; Cy = circle1.y;
+			cx = circle2.x; cy = circle2.y;
+		}
+		dx = cx - Cx;
+		dy = cy - Cy;
+		d = Math.sqrt( (dx * dx) + (dy * dy) );
+		// Cercles l'un sur l'autre
+		if (d < EPS && Math.abs(R-r) < EPS) {
+			return intersects;
+		// Cercles l'un dans l'autre
+		} else if (d < EPS) {
+			return intersects;
+		}
+		let x = (dx / d) * R + Cx;
+		let y = (dy / d) * R + Cy;
+		let P = Point(x, y);
+
+		// Cercles disjoint.
+		if ( (d+r) < R || (R+r < d) ) {
+			return intersects;
+		}
+		// Une seule intersection (les cercles se touchent juste)
+		if (Math.abs((R+r)-d) < EPS || Math.abs(R-(r+d)) < EPS) {
+			intersects.push(P);
+			return intersects;
+		};
+		var C = Point(Cx, Cy);
+		var angle = acossafe((r*r-d*d-R*R)/(-2.0*d*R));
+		var pt1 = rotatePoint(C, P, +angle);
+		var pt2 = rotatePoint(C, P, -angle);
+		intersects.push(pt1);
+		intersects.push(pt2);
 		return intersects;
 	}
 
@@ -555,7 +622,35 @@ export const collider = () => {
 		return segments;
 	};
 
-
+// Utilitaire
+	const deduplicatePoints = (arr) => {
+		let a = arr.reduce((accumulator, current) => {
+			if (checkIfAlreadyExist(current)) {
+				return accumulator;
+			} else {
+				return [...accumulator, current];
+			}
+			function checkIfAlreadyExist(currentVal) {
+				return accumulator.some((item) => {
+					return (item.x === currentVal.x &&
+						item.y === currentVal.y);
+				});
+			}
+		}, []);
+		return a;
+	}
+	const acossafe = (x) => {
+		if (x >= +1.0) return 0;
+		if (x <= -1.0) return Math.PI;
+		return Math.acos(x);
+	}
+	const rotatePoint = (fp, pt, a) => {
+		let x = pt.x - fp.x;
+		let y = pt.y - fp.y;
+		let xRot = x * Math.cos(a) + y * Math.sin(a);
+		let yRot = y * Math.cos(a) - x * Math.sin(a);
+		return Point(fp.x + xRot,fp.y + yRot);
+	}
 
 	return {
 		rectanglesCollision,
@@ -571,6 +666,8 @@ export const collider = () => {
 		PointLineCollision,
 		droiteCircleCollision,
 		segmentCircleCollision,
+		segmentPolygonCollision,
+
 		convertRectangleToSegments,
 		convertPolygonToSegments,
 		convertCircleToPolygon,
