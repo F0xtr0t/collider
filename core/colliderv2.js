@@ -142,6 +142,8 @@ export const collider = () => {
 	// 2.3 Test la collision entre un rectangle(x,y,width,height) et un cercle(x,y,r).
 	const rectangleCircleCollision = (rect, circle, intersect = false) => {
 		//TODO
+		//https://stackoverflow.com/questions/401847/circle-rectangle-collision-detection-intersection
+		//https://pub.phyks.me/sdz/sdz/eorie-des-collisions.html#Cercles-AABB
 		let collision = false;
 		let intersects = [];
 		let circleDistance = {};
