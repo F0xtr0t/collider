@@ -166,7 +166,7 @@ export const collider = () => {
 
 	// 2.4 Test la collision entre un rectangle(x,y,width,height) et un polygon (Tableau de points [{x,y},{x,y},...]).
 	const rectanglePolygonCollision =  (rectangle, polygon, intersect = false) => {
-		return PolygonPolygonCollision(convertrectangleToPolygon(rectangle),polygon, intersect = false);
+		return polygonPolygonCollision(convertrectangleToPolygon(rectangle),polygon, intersect = false);
 	};
 
   // 3. Collisions des cercles
@@ -222,7 +222,7 @@ export const collider = () => {
 
   // 4. Collisions des polygons
   	// 4.1 Test la collision entre 2 polygons (Gourmand)
-  	const PolygonPolygonCollision =  (polygonA, polygonB, intersect = false) => {
+  	const polygonPolygonCollision =  (polygonA, polygonB, intersect = false) => {
 		let collision = false;
 		let intersects = [];
 		for(let i = 0;i < polygonA.points.length;i++) {
@@ -267,7 +267,7 @@ export const collider = () => {
 		return [collision, intersects];
 	}
 	// 5.2 Test la collision entre une droite et un segment
-	const droiteSegmentCollision = (pointA, pointB, pointO, pointP, intersect = false) => {
+	const lineSegmentCollision = (pointA, pointB, pointO, pointP, intersect = false) => {
 	  let collision = false;
 	  let intersects = [];
 	  let ab = Vecteur(pointA,pointB);
@@ -287,10 +287,10 @@ export const collider = () => {
 	const segmentsCollision = (pointA, pointB, pointO, pointP, intersect = false) => {
 		let collision = false;
 		let intersects = [];
-		if (droiteSegmentCollision(pointA,pointB,pointO,pointP)[0] === false) {
+		if (lineSegmentCollision(pointA,pointB,pointO,pointP)[0] === false) {
 			return [collision, intersects];  // inutile d'aller plus loin si le segment [OP] ne touche pas la droite (AB)
 		}
-		if (droiteSegmentCollision(pointO,pointP,pointA,pointB)[0] === false) {
+		if (lineSegmentCollision(pointO,pointP,pointA,pointB)[0] === false) {
 			return [collision, intersects];
 		}
 		collision = true;
@@ -303,7 +303,7 @@ export const collider = () => {
 	const segmentsCollisionParametric = (pointA, pointB, pointO, pointP, intersect = false) => {
 	  let collision = false;
 	  let intersects = [];
-	  if (droiteSegmentCollision(pointA,pointB,pointO,pointP)[0] === false) {
+	  if (lineSegmentCollision(pointA,pointB,pointO,pointP)[0] === false) {
 		 return [collision, intersects];  // inutile d'aller plus loin si le segment [OP] ne touche pas la droite (AB)
 	  }
 	  let ab = Vecteur(pointA,pointB);
@@ -322,8 +322,8 @@ export const collider = () => {
 	}
 
 	// 6.3 Test la collision entre un segment et un rectangle 
-	const segmentRectangleCollision = (pointA, pointB, rectangle, intersect = false) => {
-		return segmentPolygonCollision(pointA, pointB, convertrectangleToPolygon(rectangle), intersect);
+	const segmentRectangleCollision = (pointA, pointB, rect, intersect = false) => {
+		return segmentPolygonCollision(pointA, pointB, convertrectangleToPolygon(rect), intersect);
 	}
 	// 6.4 Test la collision entre un segment et un polygon 
 	const segmentPolygonCollision = (pointA, pointB, polygon, intersect = false) => {
@@ -662,18 +662,18 @@ export const collider = () => {
 		pointPolygonCollision,
 		pointSegmentCollision,
 		rectanglePolygonCollision,
-		PolygonPolygonCollision,
+		polygonPolygonCollision,
 		pointLineCollision,
 		lineCircleCollision,
 		segmentCircleCollision,
 		segmentPolygonCollision,
-
+		segmentRectangleCollision,
 		convertRectangleToSegments,
 		convertPolygonToSegments,
 		convertCircleToPolygon,
 		convertrectangleToPolygon,
 		projectionPointDroite,
-
+		segmentsCollision,
 		getLineIntersection,
 
 		distanceAB

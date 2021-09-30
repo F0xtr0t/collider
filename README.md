@@ -68,4 +68,18 @@ Methods :
 | **Between Line & Circle**<br />```lineCircleCollision(pointA, pointB, circle, intersect = false)``` | <ol><li>**Point(x,y) :** Line first point (Point object)</li><li>**Point(x,y) :** Line second point (Point object)</li><li>**Circle(x,y,r) :** Circle object</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | same |
 | **Between Segment & Circle**<br />```segmentCircleCollision(pointA, pointB, circle, intersect = false)``` | <ol><li>**Point(x,y) :** Segment start point (Point object)</li><li>**Point(x,y) :** Segment end point (Point object)</li><li>**Circle(x,y,r) :** Circle object</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | same |
 
+#### 4. Polygon collision
 
+| Methods | Arguments | Response | 
+|----------|-------------|------| 
+| **Between 2 Polygon**<br />```polygonPolygonCollision(polygonA, polygonB, intersect = false)``` | <ol><li>**Polygon([{x,y},{x,y},...]) :** Polygon object</li><li>**Polygon([{x,y},{x,y},...]) :** Polygon object</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | **Array(Boolean, Array())** <ol><li>Collision or not</li><li>List of intersection points</li><ol> |
+
+#### 5. Line & Segment collision
+
+| Methods | Arguments | Response | 
+|----------|-------------|------| 
+| **Between Line & Segment**<br />```lineSegmentCollision(pointA, pointB, pointO, pointP, intersect = false)``` | <ol><li>**Point(x,y) :** Line first point (Point object)</li><li>**Point(x,y) :** Line second point (Point object)</li><li>**Point(x,y) :** Segment start point (Point object)</li><li>**Point(x,y) :** Segment end point (Point object)</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | **Array(Boolean, Array())** <ol><li>Collision or not</li><li>List of intersection points</li><ol> |
+| **Between 2 segments (first method)**<br />```segmentsCollision(pointA, pointB, pointO, pointP, intersect = false)``` | <ol><li>**Point(x,y) :** Segment 1 start point (Point object)</li><li>**Point(x,y) :** Segment 1 end point (Point object)</li><li>**Point(x,y) :** Segment 2 start point (Point object)</li><li>**Point(x,y) :** Segment 2 end point (Point object)</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | same |
+| **Between 2 segments (Second method)**<br />```segmentsCollisionParametric(pointA, pointB, pointO, pointP, intersect = false)``` | <ol><li>**Point(x,y) :** Segment 1 start point (Point object)</li><li>**Point(x,y) :** Segment 1 end point (Point object)</li><li>**Point(x,y) :** Segment 2 start point (Point object)</li><li>**Point(x,y) :** Segment 2 end point (Point object)</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | same |
+| **Between Segment & Rectangle**<br />```segmentRectangleCollision(pointA, pointB, rect, intersect = false)``` | <ol><li>**Point(x,y) :** Segment 1 start point (Point object)</li><li>**Point(x,y) :** Segment 1 end point (Point object)</li><li>**Rectangle(x,y,width,height) :** Rectangle object</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | same |
+| **Between Segment & Polygon**<br />```segmentPolygonCollision(pointA, pointB, polygon, intersect = false)``` | <ol><li>**Point(x,y) :** Segment 1 start point (Point object)</li><li>**Point(x,y) :** Segment 1 end point (Point object)</li><li>**Polygon([{x,y},{x,y},...]) :** Polygon object</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | same |
