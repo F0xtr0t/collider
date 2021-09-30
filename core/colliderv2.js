@@ -42,7 +42,7 @@ export const collider = () => {
 	}
 
 	// 1.3 - Test la collision entre un point (x,y) et un polygon (Tableau de points [{x,y},{x,y},...]).
-	const PointPolygonCollision =  (pointP, polygon,  intersect = false) => {
+	const pointPolygonCollision =  (pointP, polygon,  intersect = false) => {
 		let collision = false;
 		let intersects = [];
 		let pointI = Point();
@@ -63,11 +63,11 @@ export const collider = () => {
 		     let iseg = intersectsegment(pointA,pointB,pointI,pointP);
 		     if (iseg == -1) {
 		     	break;
-		        return PointPolygonCollision(pointP,polygon);  // cas limite, on relance la fonction.
+		        return pointPolygonCollision(pointP,polygon);  // cas limite, on relance la fonction.
 		     }
 		     nbintersections += iseg;
 			  if(!pointOnPoly && intersect) {
-				  if(PointSegmentCollision(pointP, pointA, pointB)[0]) {
+				  if(pointSegmentCollision(pointP, pointA, pointB)[0]) {
 					  intersects.push(pointP);
 					  pointOnPoly = true;
 				  }
@@ -80,7 +80,7 @@ export const collider = () => {
 	}
 
 	// 1.4 Test si pointP appartient à la droite formée de 2 points A et B.
-	const PointLineCollision =  (pointP, pointA, pointB, intersect = false) => {
+	const pointLineCollision =  (pointP, pointA, pointB, intersect = false) => {
 		let collision = false;
 		let intersects = [];
 		const s = Slope(pointA, pointB);
@@ -95,7 +95,7 @@ export const collider = () => {
 	}
 
 	// 1.5 Test si pointP appartient au segment formé de 2 points A et B.
-	const PointSegmentCollision =  (pointP, pointA, pointB, intersect = false) => {
+	const pointSegmentCollision =  (pointP, pointA, pointB, intersect = false) => {
 		let collision = false;
 		let intersects = [];
 		let d1 = distanceAB(pointP, pointA);
@@ -211,7 +211,7 @@ export const collider = () => {
 		   if(intersect) {
 			   intersects = [];
 			   for(let i=0;i<firsTest[1].length;i++) {
-				   if(PointSegmentCollision(firsTest[1][i], pointA, pointB)[0]) {
+				   if(pointSegmentCollision(firsTest[1][i], pointA, pointB)[0]) {
 					   intersects.push(firsTest[1][i]);
 				   }
 			   }
@@ -659,11 +659,11 @@ export const collider = () => {
 		circleCollision,
 		pointRectangleCollision,
 		rectangleCircleCollision,
-		PointPolygonCollision,
-		PointSegmentCollision,
+		pointPolygonCollision,
+		pointSegmentCollision,
 		rectanglePolygonCollision,
 		PolygonPolygonCollision,
-		PointLineCollision,
+		pointLineCollision,
 		droiteCircleCollision,
 		segmentCircleCollision,
 		segmentPolygonCollision,

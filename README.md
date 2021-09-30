@@ -44,5 +44,8 @@ console.log(testCollision);
 |----------|-------------|------| 
 | pointRectangleCollision(point, rect, intersect = false) | <ol><li>**Point(x,y) :** Point object</li><li>**Rectangle(x,y,width,height) :** Rectangle object</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | **Array(Boolean, Array())** <ol><li>Collision or not</li><li>List of intersection points</li><ol> |
 | pointCircleCollision(point, circle, intersect = false) | <ol><li>**Point(x,y) :** Point object</li><li>**Circle(x,y,r) :** Circle object</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | same  |
+| pointPolygonCollision(point, polygon, intersect = false) | <ol><li>**Point(x,y) :** Point object</li><li>**Polygon([{x,y},{x,y},...]) :** Polygon object</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | same  |
+| pointLineCollision(pointP, pointA, pointB, intersect = false) | <ol><li>**Point(x,y) :** Point object</li><li>**Point(x,y) :** Line first point (Point object)</li><li>**Point(x,y) :** Line second point (Point object)</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | same  |
+| pointSegmentCollision(pointP, pointA, pointB, intersect = false) | <ol><li>**Point(x,y) :** Point object</li><li>**Point(x,y) :** Segment start point (Point object)</li><li>**Point(x,y) :** Segment end point (Point object)</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | same  |
 
 
