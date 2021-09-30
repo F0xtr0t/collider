@@ -60,3 +60,12 @@ Methods :
 | **Between Rectangle & Circle**<br />```rectangleCircleCollision(rect, circle, intersect = false)``` | <ol><li>**Rectangle(x,y,width,height) :** Rectangle object</li><li>**Circle(x,y,r) :** Circle object</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | same |
 | **Between Rectangle & Polygon**<br />```rectanglePolygonCollision(rect, polygon, intersect = false)``` | <ol><li>**Rectangle(x,y,width,height) :** Rectangle object</li><li>**Polygon([{x,y},{x,y},...]) :** Polygon object</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | same |
 
+#### 3. Circle collision
+
+| Methods | Arguments | Response | 
+|----------|-------------|------| 
+| **Between 2 Circles**<br />```circleCollision(circle1, circle2, intersect = false)``` | <ol><li>**Circle(x,y,r) :** Circle object</li><li>**Circle(x,y,r) :** Circle object</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | **Array(Boolean, Array())** <ol><li>Collision or not</li><li>List of intersection points</li><ol> |
+| **Between Line & Circle**<br />```lineCircleCollision(pointA, pointB, circle, intersect = false)``` | <ol><li>**Point(x,y) :** Line first point (Point object)</li><li>**Point(x,y) :** Line second point (Point object)</li><li>**Circle(x,y,r) :** Circle object</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | same |
+| **Between Segment & Circle**<br />```segmentCircleCollision(pointA, pointB, circle, intersect = false)``` | <ol><li>**Point(x,y) :** Segment start point (Point object)</li><li>**Point(x,y) :** Segment end point (Point object)</li><li>**Circle(x,y,r) :** Circle object</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | same |
+
+

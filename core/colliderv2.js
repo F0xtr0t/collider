@@ -189,7 +189,7 @@ export const collider = () => {
 	const segmentCircleCollision = (pointA, pointB, circle, intersect = false) => {
 		let collision = false;
 		let intersects = [];
-		let firsTest = droiteCircleCollision(pointA,pointB,circle,true);
+		let firsTest = lineCircleCollision(pointA,pointB,circle,true);
 
 	   if (firsTest[0] == false) {
 		   return [collision, intersects];
@@ -247,7 +247,7 @@ export const collider = () => {
 
   // 5. Collisions des droites
   	// 5.1 Test la collision entre une droite et 1 cercle(x,y,r)
-	const droiteCircleCollision = (pointA, pointB, circle, intersect = false) => {
+	const lineCircleCollision = (pointA, pointB, circle, intersect = false) => {
 		let collision = false;
 		let intersects = [];
 	   let u = Vecteur(pointA, pointB);
@@ -664,7 +664,7 @@ export const collider = () => {
 		rectanglePolygonCollision,
 		PolygonPolygonCollision,
 		pointLineCollision,
-		droiteCircleCollision,
+		lineCircleCollision,
 		segmentCircleCollision,
 		segmentPolygonCollision,
 
