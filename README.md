@@ -42,7 +42,7 @@ console.log(testCollision);
 
 | Methods | Arguments | Response | 
 |----------|-------------|------| 
-| pointRectangleCollision(point, rect, intersect = false) | 1. Point(x,y) : Point object 2. Rectangle(x,y,width,height) : Rectangle object 3. Boolean(Optionnal) : If intersection points needed | Array(Boolean, Array()) 1. Collision or not 2. List of intersection points |
-| pointCircleCollision(point, circle, intersect = false) | 1. Point(x,y) : Point object 2. Circle(x,y,r) : Circle object 3. Boolean(Optionnal) : If intersection points needed | Array(Boolean, Array())  |
+| pointRectangleCollision(point, rect, intersect = false) | <ol><li>**Point(x,y) :** Point object</li><li>**Rectangle(x,y,width,height) :** Rectangle object</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | **Array(Boolean, Array())** <ol><li>Collision or not</li><li>List of intersection points</li><ol> |
+| pointCircleCollision(point, circle, intersect = false) | <ol><li>**Point(x,y) :** Point object</li><li>**Circle(x,y,r) :** Circle object</li><li>**Boolean(Optionnal) :** If intersection points needed</li></ol> | same  |
 
 
