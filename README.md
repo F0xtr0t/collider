@@ -31,7 +31,7 @@ Ex : Collision de 2 rectangles
 
 let rect1 = Rectangle(0, 0 , 100, 100); //Rectangle(x, y , width, height)
 let rect2 = Rectangle(50, 50 , 100, 100);//Rectangle(x, y , width, height)
-let testCollision = c.rectanglesCollision(rect1, rect2);
+let testCollision = c.rectanglesCollision(rect1, rect2, true);
 console.log(testCollision);
 
 // Response :
@@ -46,7 +46,7 @@ Ex : Collision entre 1 rectangle et un cercle
 
 let rect = Rectangle(0, 0 , 100, 100); //Rectangle(x, y , width, height)
 let circle = Circle(70, 70 , 50);//Circle(x, y , r)
-let testCollision = c.rectangleCircleCollision(rect, circle);
+let testCollision = c.rectangleCircleCollision(rect, circle, true);
 console.log(testCollision);
 
 // Response :
