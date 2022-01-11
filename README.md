@@ -1,31 +1,31 @@
 # Collider.js
 
-Kesako ?
+What is collider.js?
 -------------------
-Collider.js est une librairie javascript de collision de forme géométrique sur un plan en deux dimensions.
+Collider.js is a javascript library of geometric shape collision on a two-dimensional plane.
 
-L'algorythme permet de tester (Vrai / Faux) si deux formes positionnées dans un même plan sont en collision ou non. 
+The algorithm can test (True / False) whether two shapes positioned in the same plane are in collision or not.
 
-Il permet également, au besoin, d'obtenir les points d'intersection des côtés de chaque formes.
+It also allows, if necessary, to obtain the points of intersection of the sides of each shape.
 
 Installation :
 -------------------
 
-Copier la libraire dans votre projet puis importez les éléments suivant
+Copy the library into your project then import the elements as follows:
 
 ```javascript
 import { Rectangle, Circle, Point, Polygon} from './core/objectType.js';
 import { collider } from './core/colliderv2.js'
 
 ```
-Charger collider :
+load collider:
 ```javascript
 var c = collider();
 ```
 
-Utilisation :
+How to use:
 -------------------
-Ex : Collision de 2 rectangles
+Ex: Collision between 2 rectangles
 
 ```javascript
 
@@ -40,7 +40,7 @@ console.log(testCollision);
 // Second entry => Array : List of intersection points (if asked)
 ```
 
-Ex : Collision entre 1 rectangle et un cercle
+Ex: Collision between a rectangle and a circle
 
 ```javascript
 
